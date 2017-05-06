@@ -13,9 +13,9 @@ import { Observable } from 'rxjs/Observable';
 export class ChartPanelComponent {
 
   private topTenCountries:Observable<any>;
-  private count : number = 10;
+  private take : number = 10;
 
   constructor(private dataService: AppRemoteDataService) {
-    this.topTenCountries = this.dataService.getCountries();
+    this.topTenCountries = this.dataService.getCountries(this.take);
    }
 }
