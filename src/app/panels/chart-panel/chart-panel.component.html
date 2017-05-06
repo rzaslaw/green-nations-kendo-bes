@@ -1,0 +1,14 @@
+<kendo-chart>
+  <kendo-chart-title text="EPI Index of the Top 10 'Green Nations'"></kendo-chart-title>
+     <kendo-chart-value-axis>
+     <kendo-chart-value-axis-item [title]="{ text: 'EPI Index' }"
+        [min]="0" [max]="100"></kendo-chart-value-axis-item>
+   </kendo-chart-value-axis>
+  <kendo-chart-series>
+    <kendo-chart-series-item 
+      type="column" [data]="topTenCountries | async" [name]="name" field="epiIndex" categoryField="name">
+      <kendo-chart-series-item-tooltip background="green" format="{0}" >
+          </kendo-chart-series-item-tooltip>
+    </kendo-chart-series-item>
+  </kendo-chart-series>
+</kendo-chart>
