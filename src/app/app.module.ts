@@ -26,6 +26,7 @@ import { ChartsModule } from '@progress/kendo-angular-charts';
 import 'hammerjs';
 import { ChartPanelComponent } from './panels/chart-panel/chart-panel.component';
 import { GridModule } from '@progress/kendo-angular-grid';
+import { CountryGridComponent } from './country-grid/country-grid.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { GridModule } from '@progress/kendo-angular-grid';
     AuthenticatedUserComponent,
     CountryPanelComponent,
     ImagePanelComponent,
-    ChartPanelComponent
+    ChartPanelComponent,
+    CountryGridComponent
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { AppDataService } from '../services/app-data.service';
-import { Country } from '../view-models/Country';
+import { AppRemoteDataService } from '../services/app-remote-data.service';
+import { Countries } from '../view-models/Countries';
+import { Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-country-list',
@@ -11,32 +12,22 @@ import { Country } from '../view-models/Country';
 })
 export class CountryListComponent implements OnInit {
 
-  allCountries: Array<Country>;
+  allCountries: Array<Countries>;
   count = 0;
-  countries: Array<Country>;
+  // countries: Observable<any>;
 
-  constructor(private dataService: AppDataService,
+  constructor(private dataService: AppRemoteDataService,
               private route: ActivatedRoute) { 
   }
 
   ngOnInit() {
-    this.dataService.getCountries().subscribe(
-      countries => {
-        this.allCountries = countries;
-
-        this.count = this.route.snapshot.params['count'];
-        this.updateList();
-      }
-    );
 
     this.route.params.subscribe(params => {
       this.count = params['count'];
-      this.updateList();
-     });
-  }
 
-  updateList() {
-    this.countries = this.count>0?this.allCountries.slice(0, this.count): this.allCountries;
+      this.dataService.getCountries(this.count).subscribe(
+        countries => {this.allCountries = countries;}
+      );        
+    });
   }
 }
-

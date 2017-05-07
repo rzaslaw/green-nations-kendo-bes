@@ -1,5 +1,5 @@
 
-<fw-panel *ngFor="let country of countries; let i=index">
+<fw-panel *ngFor="let country of allCountries; let i=index">
   <div class="projected-title">Country</div>
   <app-country-panel [country]="country" [index]="i+1">
   </app-country-panel>

@@ -1,0 +1,16 @@
+<h3>EPI Index - All Countries</h3>
+<button kendoButton [primary]="true" (click)="createCountry()" >Add New Country</button>
+<p></p>
+<kendo-grid 
+          [data]="gridView"
+          [height]="530"
+          [sortable]="{ mode: 'single' }"
+          [sort]="sort"
+          (sortChange)="sortChange($event)">
+    <kendo-grid-column field="rank" title="Rank" width="40" >
+    </kendo-grid-column>
+    <kendo-grid-column field="name" title="Country Name" width="250" >
+    </kendo-grid-column>
+    <kendo-grid-column field="epiIndex" title="EPI Index" width="250" >
+    </kendo-grid-column>    
+</kendo-grid>
