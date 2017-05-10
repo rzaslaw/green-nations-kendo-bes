@@ -5,7 +5,7 @@ import { AppRemoteDataService } from '../services/app-remote-data.service';
 import { Countries } from '../view-models/countries';
 
 // Kendo UI Grid Requirements
-import { GridDataResult } from '@progress/kendo-angular-grid';
+import { GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
 
 @Component({
@@ -15,67 +15,35 @@ import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
 })
 export class CountryGridComponent implements OnInit {
 
-  countries : Array<Countries>;
-  deleteError: string;
-  deleteId: number;
-  isDeleting = false;
-  take: number = 180;
-
-    private sort: SortDescriptor[] = [{ field: "rank", dir: "asc" }];
+    private countries : Array<Countries>;
     private gridView: GridDataResult;
+    private data: Object[];
+
+    private pageSize: number = 10;
+    private skip: number = 0;
+    private take: number = 180;
+    private field: string = "epiIndex";
+    private sortDir: number = -1;
  
   constructor(private dataService: AppRemoteDataService,
               private router: Router) { }
 
   ngOnInit(){
-    this.dataService.getCountries(this.take).subscribe((data) => { 
-      this.countries = data;
-      this.loadCountries();    
-  });
-
+      this.dataService.getCountries(this.take, this.field, this.sortDir).subscribe((data) => { 
+            this.countries = data;
+            this.bindGrid();   
+      }); 
   }
 
-  protected sortChange(sort: SortDescriptor[]): void {
-      this.sort = sort;
-      this.loadCountries();
-  }
-
-  private loadCountries(): void {
+  private bindGrid(): void {
       this.gridView = {
-          data: orderBy(this.countries, this.sort),
-          total: this.countries.length
+            data: this.countries.slice(this.skip, this.skip + this.pageSize),
+            total: this.countries.length
       };
   }
 
-
-  cancelDelete() {
-    this.isDeleting = false;
-    this.deleteId = null;
-  }
-
-  createCountry() {
-    this.router.navigate(['/authenticated/country-detail', 0, 'create']);
-  }
-
-  // deleteCountry(id: number) {
-  //   this.isDeleting = true;
-  //   this.dataService.deleteCountry(id).subscribe(
-  //     c => this.cancelDelete(),
-  //     err => { this.deleteError = err; this.isDeleting = false; }
-  //     );
-  // }
-
-  deleteCountryQuestion(id:number) {
-    this.deleteError = null;
-    this.deleteId = id;
-  }
-
-  editCountry(id: number) {
-    this.router.navigate(['/authenticated/country-detail', id, 'edit']);
-  }
-
-  showCountryDetail(id: number) {
-    this.router.navigate(['/authenticated/country-detail', id, 'details']);
-  }
-
+   protected pageChange(event: PageChangeEvent): void {
+       this.skip = event.skip;
+       this.bindGrid();
+   }
 }

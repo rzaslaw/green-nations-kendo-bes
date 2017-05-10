@@ -11,7 +11,6 @@ import { SettingsComponent } from './settings/settings.component';
 import { appRoutes } from './app.routing';
 import { CountryDetailComponent } from './country-detail/country-detail.component';
 import { CountryListComponent } from './country-list/country-list.component';
-import { CountryMaintComponent } from './country-maint/country-maint.component';
 import { AuthenticatedUserComponent } from './authenticated-user/authenticated-user.component';
 import { UserService } from './services/user.service';
 import { UserApi } from '../fw/users/user-api';
@@ -34,9 +33,8 @@ import { CountryGridComponent } from './country-grid/country-grid.component';
     DashboardComponent,
     SettingsComponent,
     CountryDetailComponent,
-    CountryListComponent,
-    CountryMaintComponent,
     AuthenticatedUserComponent,
+    CountryListComponent,
     CountryPanelComponent,
     ImagePanelComponent,
     ChartPanelComponent,

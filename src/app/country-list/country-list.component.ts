@@ -13,7 +13,10 @@ import { Observable} from 'rxjs/Observable';
 export class CountryListComponent implements OnInit {
 
   allCountries: Array<Countries>;
-  count = 0;
+  private count = 0;
+  private field: string = "epiIndex";
+  private sortDir = -1;
+
   // countries: Observable<any>;
 
   constructor(private dataService: AppRemoteDataService,
@@ -25,7 +28,7 @@ export class CountryListComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.count = params['count'];
 
-      this.dataService.getCountries(this.count).subscribe(
+      this.dataService.getCountries(this.count, this.field, this.sortDir).subscribe(
         countries => {this.allCountries = countries;}
       );        
     });

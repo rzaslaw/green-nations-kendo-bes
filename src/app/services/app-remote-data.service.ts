@@ -12,11 +12,21 @@ export class AppRemoteDataService {
 
     constructor(private http: Http) { }
 
-    getCountries(take : number) : Observable<Countries[]> {    
-      let headers = new Headers({ 'X-Everlive-Take': take });
-      let options = new RequestOptions({ headers: headers });
+    getCountries(take : number, field : string, sortDir: number) : Observable<Countries[]> {  
+        let sortExp = '{ "' + field + '" : ' + sortDir + " }";
+        console.log(sortExp);       
 
-      return this.http.get(this.countriesUrl, options).map(response => response.json().Result as Countries[]);
-  }
+        let headers = new Headers({ 'X-Everlive-Sort' : sortExp, 'X-Everlive-Take': take});
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.get(this.countriesUrl, options).map(response => response.json().Result as Countries[]);
+    }
+
+    // getGridCountries(take : number, skip: number) : Observable<Countries[]> {    
+    //     let headers = new Headers({ 'X-Everlive-Take': take, 'X-Everlive-Skip': skip  });
+    //     let options = new RequestOptions({ headers: headers });
+
+    //     return this.http.get(this.countriesUrl, options).map(response => response.json().Result as Countries[]);
+    //  }
 
  }
