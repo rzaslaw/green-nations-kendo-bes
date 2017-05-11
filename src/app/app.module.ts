@@ -15,8 +15,8 @@ import { AuthenticatedUserComponent } from './authenticated-user/authenticated-u
 import { UserService } from './services/user.service';
 import { UserApi } from '../fw/users/user-api';
 import { AuthGuard } from './services/auth-guard.service';
-import { AppDataService } from './services/app-data.service';
 import { AppRemoteDataService } from './services/app-remote-data.service';
+import { CountriesService } from "./services/app-grid-data.service";
 import { CountryPanelComponent } from './panels/country-panel/country-panel.component';
 import { ImagePanelComponent } from './panels/image-panel/image-panel.component';
 // Import Kendo UI for Angular Components
@@ -54,9 +54,9 @@ import { CountryGridComponent } from './country-grid/country-grid.component';
   providers: [
     UserService,
     { provide: UserApi, useExisting: UserService },
-    AuthGuard,
-    AppDataService,
-    AppRemoteDataService
+    AuthGuard,  
+    AppRemoteDataService, 
+    CountriesService   
   ],
   bootstrap: [AppComponent]
 })

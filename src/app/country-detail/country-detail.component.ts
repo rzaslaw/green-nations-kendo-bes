@@ -1,7 +1,7 @@
 import { Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import { ActivatedRoute, Params, Router} from '@angular/router';
 
-import { AppDataService } from '../services/app-data.service';
+import { AppRemoteDataService } from '../services/app-remote-data.service';
 import { Country } from '../view-models/country';
 import { FieldDefinition } from '../../fw/dynamic-forms/field-definition';
 
@@ -10,7 +10,7 @@ import { FieldDefinition } from '../../fw/dynamic-forms/field-definition';
   templateUrl: './country-detail.component.html',
   styleUrls: ['./country-detail.component.css']
 })
-export class CountryDetailComponent implements OnInit {
+export class CountryDetailComponent {
 
   country: Country;
   countryDefinition: Array<FieldDefinition> = [
@@ -40,34 +40,34 @@ export class CountryDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router, 
-              private dataService: AppDataService) { }
+              private dataService: AppRemoteDataService) { }
 
-  createCountry(country: Country) {
-    country.id = 0;
-    this.errorMessage = null;
-    this.dataService.createCountry(country).subscribe(
-      c => this.router.navigate(['/authenticated/country-maint']),
-      err => this.errorMessage = 'Error creating country'
-      );
-  }
+  // createCountry(country: Country) {
+  //   country.id = 0;
+  //   this.errorMessage = null;
+  //   this.dataService.createCountry(country).subscribe(
+  //     c => this.router.navigate(['/authenticated/country-maint']),
+  //     err => this.errorMessage = 'Error creating country'
+  //     );
+  // }
 
-  ngOnInit() {
-    this.operation = this.route.snapshot.params['operation'];
+  // ngOnInit() {
+  //   this.operation = this.route.snapshot.params['operation'];
 
-    if (this.operation === 'create') {
-      this.country = { id: 0, name: "", epiIndex: null };
-    }
-    else
-      this.dataService.getCountry(this.route.snapshot.params['id'])
-        .subscribe((country: Country) => this.country = country);
-  }
+  //   if (this.operation === 'create') {
+  //     this.country = { id: 0, name: "", epiIndex: null };
+  //   }
+  //   else
+  //     this.dataService.getCountry(this.route.snapshot.params['id'])
+  //       .subscribe((country: Country) => this.country = country);
+  // }
 
-  updateCountry(country: Country) {
-    this.errorMessage = null;
-    this.dataService.updateCountry(country).subscribe(
-      c => this.router.navigate(['/authenticated/country-maint']),
-      err => this.errorMessage = 'Error updating country'
-      );
-  }
+  // updateCountry(country: Country) {
+  //   this.errorMessage = null;
+  //   this.dataService.updateCountry(country).subscribe(
+  //     c => this.router.navigate(['/authenticated/country-maint']),
+  //     err => this.errorMessage = 'Error updating country'
+  //     );
+  // }
 
 }

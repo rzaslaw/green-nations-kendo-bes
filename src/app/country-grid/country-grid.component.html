@@ -1,12 +1,15 @@
 <h3>EPI Index - All Countries</h3>
 <p></p>
 <kendo-grid 
-          [data]="gridView"
+          [data]="view | async"
           [height]="450"
-          [pageSize]="pageSize"
-          [skip]="skip"
+          [pageSize]="state.take"
+          [skip]="state.skip"
+          [sort]="state.sort"
+          [sortable]="true"
           [pageable]="true"
-          (pageChange)="pageChange($event)">
+          [scrollable]="'none'"
+          (dataStateChange)="dataStateChange($event)">
     <kendo-grid-column field="rank" title="Rank" width="40" >
     </kendo-grid-column>
     <kendo-grid-column field="name" title="Country Name" width="250" >

@@ -1,49 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AppRemoteDataService } from '../services/app-remote-data.service';
+import { CountriesService } from '../services/app-grid-data.service';
 import { Countries } from '../view-models/countries';
+import { Observable } from 'rxjs/Rx';
 
 // Kendo UI Grid Requirements
-import { GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
-import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
+import { DataStateChangeEvent, GridDataResult } from '@progress/kendo-angular-grid';
+import { State } from '@progress/kendo-data-query';
 
 @Component({
   selector: 'app-country-grid',
   templateUrl: './country-grid.component.html',
   styleUrls: ['./country-grid.component.css']
 })
-export class CountryGridComponent implements OnInit {
+export class CountryGridComponent {
+    public view: Observable<GridDataResult>;
+    public state: State = {
+        skip: 0,
+        take: 10
+    };
 
-    private countries : Array<Countries>;
-    private gridView: GridDataResult;
-    private data: Object[];
+    constructor(private service: CountriesService) {
+       this.view  = this.service.fetchData(this.state);
+    }
 
-    private pageSize: number = 10;
-    private skip: number = 0;
-    private take: number = 180;
-    private field: string = "epiIndex";
-    private sortDir: number = -1;
- 
-  constructor(private dataService: AppRemoteDataService,
-              private router: Router) { }
-
-  ngOnInit(){
-      this.dataService.getCountries(this.take, this.field, this.sortDir).subscribe((data) => { 
-            this.countries = data;
-            this.bindGrid();   
-      }); 
-  }
-
-  private bindGrid(): void {
-      this.gridView = {
-            data: this.countries.slice(this.skip, this.skip + this.pageSize),
-            total: this.countries.length
-      };
-  }
-
-   protected pageChange(event: PageChangeEvent): void {
-       this.skip = event.skip;
-       this.bindGrid();
-   }
+    public dataStateChange(state: DataStateChangeEvent): void {
+        //console.log(state.sort);
+        this.state = state;
+        this.view = this.service.fetchData(state);
+    }
 }

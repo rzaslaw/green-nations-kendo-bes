@@ -21,12 +21,4 @@ export class AppRemoteDataService {
 
         return this.http.get(this.countriesUrl, options).map(response => response.json().Result as Countries[]);
     }
-
-    // getGridCountries(take : number, skip: number) : Observable<Countries[]> {    
-    //     let headers = new Headers({ 'X-Everlive-Take': take, 'X-Everlive-Skip': skip  });
-    //     let options = new RequestOptions({ headers: headers });
-
-    //     return this.http.get(this.countriesUrl, options).map(response => response.json().Result as Countries[]);
-    //  }
-
  }
