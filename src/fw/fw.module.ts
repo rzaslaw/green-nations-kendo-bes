@@ -27,6 +27,15 @@ import { PanelComponent } from './panels/panel/panel.component';
 // Import Kendo UI for Angular Components
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 
+// Import the AngularEverliveModule and EverliveConfig interface
+import { AngularEverliveModule, EverliveConfig } from 'angular-everlive';
+
+//Create EverliveConfig object
+const everliveConfig : EverliveConfig  = {
+  appId: "ejdvn0vq0t4dw3y4",
+  scheme: "https"
+};  
+
 @NgModule({
   imports: [
     CommonModule,
@@ -36,7 +45,8 @@ import { ButtonsModule } from '@progress/kendo-angular-buttons';
     BrowserAnimationsModule,
     ReactiveFormsModule, 
     // Import Kendeo UI controls
-    ButtonsModule
+    ButtonsModule,
+    AngularEverliveModule.initialize(everliveConfig)
   ],
   declarations: [
     FrameworkBodyComponent,

@@ -1,0 +1,22 @@
+.report-holder {
+    flex-grow: 1;
+    background-image: url(/assets/Sweden.jpg);
+    background-position:  center center;
+    background-size: cover;
+    height: 150px;
+}
+
+span {
+    color: white;
+    font-size: 36px;
+}
+
+span.reportname {
+    color: #ff6358;
+    font-size: 24px;
+}
+
+.title {
+    background-color: rgba(50,50,50,0.5);
+    text-align: center;
+}

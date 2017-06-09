@@ -32,4 +32,10 @@ export let initialMenuItems: Array<MenuItem> = [
             }
         ],
     },
+    {
+        text: 'Reports',
+        icon: 'glyphicon-book',
+        route: 'authenticated/reports',
+        submenu: null
+    }
 ];

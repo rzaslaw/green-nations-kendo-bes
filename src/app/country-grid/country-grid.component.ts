@@ -25,9 +25,11 @@ export class CountryGridComponent {
        this.view  = this.service.fetchData(this.state);
     }
 
-    public dataStateChange(state: DataStateChangeEvent): void {
-        //console.log(state.sort);
-        this.state = state;
-        this.view = this.service.fetchData(state);
+    public dataStateChange(stateChangedEvent: DataStateChangeEvent): void {
+        //console.log((<any>stateChangedEvent).ansddddd);
+        //console.log((<any>stateChangedEvent).filter);
+        this.state = stateChangedEvent;
+        //console.log(this.state.filter);
+        this.view = this.service.fetchData(stateChangedEvent);
     }
 }

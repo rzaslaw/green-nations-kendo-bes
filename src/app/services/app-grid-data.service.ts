@@ -4,14 +4,15 @@ import { GridDataResult } from '@progress/kendo-angular-grid';
 import { toODataString } from '@progress/kendo-data-query';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import Everlive from 'everlive-sdk';
-import { State } from '@progress/kendo-data-query';
+import { Everlive  } from 'angular-everlive';
+import { State, FilterDescriptor } from '@progress/kendo-data-query';
+
 import 'rxjs/add/operator/map';
 
 export abstract class AppGridDataService extends BehaviorSubject<GridDataResult> {
     private BASE_URL: string = 'https://api.everlive.com/v1/ejdvn0vq0t4dw3y4/';
 
-    constructor(private http: Http, private tableName: string) {
+    constructor(private http: Http, private tableName: string, private el: Everlive) {
         super(null);
     }
 
@@ -20,10 +21,20 @@ export abstract class AppGridDataService extends BehaviorSubject<GridDataResult>
     }
 
     public fetchData(state: State): Observable<GridDataResult> {
-        var el = new Everlive('ejdvn0vq0t4dw3y4');
-        var data = el.data('Countries');
+        console.log("fetch data fired");
+        var data = this.el.data('Countries');
         var query = new Everlive.Query();
-        query.skip(state.skip).take(state.take);
+ 
+
+        if (state.filter == undefined) {
+            query.skip(state.skip).take(state.take);
+            console.log(query);
+        } else {
+            let x =<FilterDescriptor> state.filter.filters[0];
+            query.where().gte(x.field,x.value).done().order(state.sort).take(state.take).skip(state.skip);
+            console.log(query);
+        }
+
         if(state.sort){
             state.sort.forEach((sortElement)=>{
                 if(sortElement.dir === "asc"){
@@ -40,6 +51,6 @@ export abstract class AppGridDataService extends BehaviorSubject<GridDataResult>
 
 @Injectable()
 export class CountriesService extends AppGridDataService {
-    constructor(http: Http) { super(http, "Countries"); }
+    constructor(http: Http, el: Everlive ) { super(http, "Countries", el); }
 }
 

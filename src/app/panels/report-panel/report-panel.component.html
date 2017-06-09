@@ -1,0 +1,27 @@
+
+<fw-panel>
+    <div class="report-holder">
+        <div class="title">
+            <span>{{title}}</span>
+            <br>    
+            <span class="reportname" *ngIf="mySelectedReport.report">"{{mySelectedReport.report}}"</span>
+        </div>
+        <kendo-dropdownlist 
+            [defaultItem]="defaultItem" 
+            [data]="listItems" 
+            [textField]="'text'" 
+            [valueField]="'value'" 
+            (selectionChange)="handleSelectionChange($event)" 
+            (valueChange)="handleValueChange()">
+        </kendo-dropdownlist>
+        
+        <tr-viewer #viewer1
+            [containerStyle]="viewerContainerStyle"
+            [serviceUrl]="'http://localhost/telerikreportingrestservice//api/reports'"
+            [reportSource]="mySelectedReport"
+            [viewMode]="'INTERACTIVE'"
+            [scaleMode]="'SPECIFIC'"
+            [scale]="1.0">
+        </tr-viewer>
+    </div>
+</fw-panel>

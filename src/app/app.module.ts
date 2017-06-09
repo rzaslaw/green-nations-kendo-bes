@@ -22,10 +22,15 @@ import { ImagePanelComponent } from './panels/image-panel/image-panel.component'
 // Import Kendo UI for Angular Components
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { ChartsModule } from '@progress/kendo-angular-charts';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import 'hammerjs';
 import { ChartPanelComponent } from './panels/chart-panel/chart-panel.component';
 import { GridModule } from '@progress/kendo-angular-grid';
 import { CountryGridComponent } from './country-grid/country-grid.component';
+// Import Telerik Reporting Angular 4 Report Viewer
+import { TelerikReportingModule } from '@progress/telerik-angular-report-viewer';
+import { ReportsComponent } from './reports/reports.component';
+import { ReportPanelComponent } from './panels/report-panel/report-panel.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +43,9 @@ import { CountryGridComponent } from './country-grid/country-grid.component';
     CountryPanelComponent,
     ImagePanelComponent,
     ChartPanelComponent,
-    CountryGridComponent
+    ReportPanelComponent,
+    CountryGridComponent,    
+    ReportsComponent 
   ],
   imports: [
     BrowserModule,
@@ -48,7 +55,9 @@ import { CountryGridComponent } from './country-grid/country-grid.component';
     // Import Kendeo UI controls
     ButtonsModule,
     ChartsModule,
+    DropDownsModule,
     GridModule,
+    TelerikReportingModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [

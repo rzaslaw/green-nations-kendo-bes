@@ -6,14 +6,16 @@
           [pageSize]="state.take"
           [skip]="state.skip"
           [sort]="state.sort"
+          [filter]="state.filter"
+          [filterable]="true"
           [sortable]="true"
           [pageable]="true"
           [scrollable]="'none'"
           (dataStateChange)="dataStateChange($event)">
-    <kendo-grid-column field="rank" title="Rank" width="40" >
+    <kendo-grid-column field="rank" title="Rank" width="40" [filterable]="false" >
     </kendo-grid-column>
-    <kendo-grid-column field="name" title="Country Name" width="250" >
+    <kendo-grid-column field="name" title="Country Name" width="250" [filterable]="true" >
     </kendo-grid-column>
-    <kendo-grid-column field="epiIndex" title="EPI Index" width="250" >
+    <kendo-grid-column field="epiIndex" title="EPI Index" width="250" [filterable]="true" filter="numeric" >
     </kendo-grid-column>    
 </kendo-grid>

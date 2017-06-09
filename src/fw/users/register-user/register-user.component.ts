@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Everlive  } from 'angular-everlive';
 
 @Component({
   selector: 'fw-register-user',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterUserComponent implements OnInit {
 
-  constructor() { }
+  constructor(private el:Everlive) { }
 
   ngOnInit() {
+
   }
 
 }
